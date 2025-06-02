@@ -37,12 +37,14 @@ router.post('/login', async (req, res) => {
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
 
+  const isAdmin = !!db.prepare('SELECT 1 FROM admin WHERE user_uuid = ?').get(user.id);
+  
   const token = jwt.sign(
     { id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email },
     JWT_SECRET,
     { expiresIn: '1h' }
   );
-  res.json({ token });
+  res.json({ token, isAdmin });
 });
 
 // CHANGE PASSWORD endpoint

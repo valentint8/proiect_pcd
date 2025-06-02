@@ -4,7 +4,7 @@ const { authenticateJWT, requireAdminOrManager, requireAdminOrAnyManager } = req
 const router = express.Router();
 
 router.get('/users', authenticateJWT, requireAdminOrAnyManager, (req, res) => {
-  const users = db.prepare('SELECT id, name FROM users').all();
+  const users = db.prepare('SELECT id, first_name, last_name, email, phone FROM users').all();
 
   const stmt = db.prepare('SELECT 1 FROM manager WHERE user_uuid = ? LIMIT 1');
   const usersWithManagerFlag = users.map(user => ({
