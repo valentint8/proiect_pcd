@@ -110,7 +110,7 @@ if (!userExists) {
     'This is the default restaurant.',
     'Strada Exemplu 1',
     '0700000000',
-    null,
+    "https://i.imgur.com/MG0HaA6.jpeg",
     '08:00',
     '22:00',
     'Pizza, Italian',
